@@ -1,6 +1,6 @@
 ## Introduction
 
-The Luminis OWA (Outlook Web Application) SSO adapter is a shim packaged as a deployable Java web application that permits the Luminis GCF framework to single sign-on into Microsoft Exchange OWA while retaining the full *premium mode* experience.
+The Luminis OWA (Outlook Web Application) SSO adapter is a shim packaged as a deployable Java web application that permits the Luminis GCF framework to do single sign-on into Microsoft Exchange OWA while retaining the full *premium mode* user experience.
 
 Luminis Platform 4.x comes pre-packaged with a GCF connector compatible with OWA 2007/2010. The big downside is that these connectors can only provide single sign-on for the light or vision assistance mode of OWA.
 
@@ -8,9 +8,9 @@ Luminis Platform 4.x comes pre-packaged with a GCF connector compatible with OWA
 
 When using forms based authentication, OWA uses multiple strategies to detect and enable the premium mode from the client side. It appears that user agent detection may be used to provide premium mode only to browsers designated as supported by Microsoft. In addition, multiple cookies are used to communicate the intent to use premium mode during authentication.
 
-It is impossible to full emulate all of this activity in the XML for a GCF connector, and instead this adapter application can be used to perform the necessary steps in a servlet. The GCF can call the servlet instead of OWA directly, and the servlet behaves in such a way that all the essential features of the GCF framework, including cookie pickup, work as expected.
+It is impossible to fully emulate all of this activity in the XML for a GCF connector, and instead this adapter application can be used to perform the necessary steps in a servlet. The GCF can call the servlet to do the authentication work instead of calling OWA directly. The servlet behaves in such a way that all the essential features of the GCF framework, including client cookie pickup, work without issue.
 
-This adapter was developed and tested on Luminis Platform 4.3, but is likely to be compatible with earlier versions of 4.x without changes. It has been in production for many months, and has proven to be very reliable.
+This adapter was developed and tested on Luminis Platform 4.3, but is likely to be compatible with earlier versions of 4.x without changes. It has been in production for many months, and thus far has proven to be very reliable.
 
 ## Requirements
 
@@ -36,7 +36,7 @@ Clone this Git repository to your disk, or download the package ZIP file using t
 
 ### Step 2 - Configure the Application
 
-The adapter can be configured for your OWA installation by editing the four context parameters in src/main/java/webapp/WEB-INF/web.xml
+The adapter can be configured for your OWA deployment by editing the four context parameters in src/main/java/webapp/WEB-INF/web.xml
 
 | Context Parameter | Value |
 | ----------------- | ----- |
@@ -49,7 +49,7 @@ The adapter can be configured for your OWA installation by editing the four cont
 
 ### Step 3 - Build
 
-Using Maven on the command line (or in your favorite IDE), run the following Maven goals in sequence on the root directory of the project: **clean compile war:war**
+Using Maven on the command line (or in your favorite Java IDE), run the following Maven goals in sequence on the root directory of the project: **clean compile war:war**
 
 In the _target_ directory, a WAR archive will be generated with the name **fhda-owa.war**
 
@@ -138,7 +138,7 @@ Replace the host names in the URL as appropriate. Once the cookies are cleared o
 
 Is this complicated? Yes. Can it be made better? Probably. That is why this source code is here on GitHub. Either you can benefit from it, or fork it and make it better.
 
-Offering premium mode with single sign-on in our Luminis portal has been a big hit with our entire user community. Our migration to Exchange partially rode on the back of the idea that the web experience would be a significant improvement over our legacy system. To lose much of that greater experience just to do single sign-on was unacceptable, and therefore the research to make this work provided to be worth it.
+Offering premium mode with single sign-on in our Luminis portal has been a big hit with our entire user community. Our migration to Exchange partially rode on the back of the idea that the web experience would be a significant improvement over our legacy system. To lose much of that greater experience just to do single sign-on was unacceptable, and therefore the research to make this work proved to be worth it.
 
 
 
