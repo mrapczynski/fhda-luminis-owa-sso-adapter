@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+           version="2.5">
+
+    <servlet>
+        <servlet-name>MOWAProxyServlet</servlet-name>
+        <servlet-class>edu.fhda.luminis.gcf.mowa2010.MOWAProxyServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MOWAProxyServlet</servlet-name>
+        <url-pattern>/proxy</url-pattern>
+    </servlet-mapping>
+
+    <!--
+    The public-facing URL to your Microsoft OWA installation should be specified. Take extra care to include
+    the trailing "/" after the "/owa" context path.
+    -->
+    <context-param>
+        <param-name>mowa_base_url</param-name>
+        <param-value>https://exchange.yourschool.edu/owa/</param-value>
+    </context-param>
+
+    <!--
+    The domain name for your OWA installation
+    -->
+    <context-param>
+        <param-name>mowa_domain</param-name>
+        <param-value>exchange.yourschool.edu</param-value>
+    </context-param>
+
+    <!--
+    OPTIONAL:
+    If your OWA installation is using SSL (which hopefully it is), specify the name of the trust file
+    you have generated using keytool
+    -->
+    <context-param>
+        <param-name>ssl_trust_file</param-name>
+        <param-value>mowa2010</param-value>
+    </context-param>
+
+    <!--
+    OPTIONAL:
+    In conjunction with the trust file, set the passphrase used for the key file as specified when generated
+    using keytool
+    -->
+    <context-param>
+        <param-name>ssl_trust_password</param-name>
+        <param-value>your_trust_password_here</param-value>
+    </context-param>
+
+</web-app>

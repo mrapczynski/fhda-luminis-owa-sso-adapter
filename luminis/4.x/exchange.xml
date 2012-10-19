@@ -1,0 +1,54 @@
+
+<operations>
+
+    <authenticate>
+        <CLIENT>
+            <SESSION a:server="${properties.gcfAdapterServer}" >
+                <POST a:url="${properties.gcfAdapterURL}">
+					<PARAM a:name="portalid" a:value="${_USERNAME}" />
+					<PARAM a:name="portalpassword" a:value="${_PASSWORD}" />
+                </POST>
+
+                <SEARCH a:symbol="success" a:source="${_RESPONSE}" a:value="${_VALUE}" >
+                    <EXISTS a:string="divNavHostBody" a:found="TRUE" a:notfound="FALSE" />
+                </SEARCH>
+
+                <RESULT a:value="${success}" />
+            </SESSION>
+        </CLIENT>
+    </authenticate>
+
+    <deauthenticate>
+		<!--
+        <CLIENT>
+            <SESSION a:server="${properties.externalSystemURL}" >
+		    <GET a:url="/owa/auth/logoff.aspx?Cmd=logoff" a:query="" a:redirects="no" />
+
+                <RESULT a:value="TRUE" />
+            </SESSION>
+        </CLIENT>
+		-->
+    </deauthenticate>
+
+    <checkstate>
+		<!--
+		Just automatically kill the session held by the GCF. If the user needs to log in again, then
+		this helps Luminis stay out of the way
+		-->
+		<CLIENT>
+			<SESSION>
+				<RESULT a:value="FALSE" />
+			</SESSION>
+		</CLIENT>
+    </checkstate>
+
+    <lastActive>
+		<!-- Just automatically kill the session held by the GCF. If the user needs to log in again, then
+		this helps Luminis stay out of the way -->	
+		<CLIENT>
+			<SESSION>
+				<RESULT a:value="FALSE" />
+			</SESSION>
+		</CLIENT>
+    </lastActive>
+</operations>

@@ -1,0 +1,5 @@
+es.exchange.autosync=false
+es.exchange.configURL=http://yourportal.yourschool.edu:8008/cpipconnector/exchange/GetConfigVersion2
+es.exchange.configattempts=60
+es.exchange.configsleeptime=10000
+es.exchange.shortcircuitlogin=false

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--
+		Improved GCF Pickup File
+		Author: Matt Rapczynski, Foothill-De Anza Community College District
+		Date: July 1, 2012
+
+		- Removed debug statements
+		- Added icon and brief caption in order make SSO transaction more presentable
+		- Changed uses of escape(...) and unescape(...) for encode/decodeURIComponent(...)
+		-->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="Pragma" CONTENT="no-cache">
+		<meta http-equiv="expires" CONTENT="-1">
+
+		<title>Creating Secure Connection</title>
+
+		<script type="text/javascript">
+			function log(message)
+			{
+				if(window.console) {
+					if(window.console.info) {
+						window.console.info(message);
+					}
+					else {
+						window.console.log(message);
+					}
+				}
+			}
+
+			function logObject(object)
+			{
+				if(window.console) {
+					if(window.console.dir) {
+						window.console.dir(object);
+					}
+				}
+			}
+
+			function performCookiePickup()
+			{
+			    var debug = false;
+			    var destinationURL;
+			    var searchString = document.location.search;
+
+			    if ( searchString.length == 1 ) {
+			        // Nothing to do
+			        return;
+			    }
+
+			    // Strip off the leading '?'
+			    searchString = searchString.substring( 1 );
+
+			    // Split the string on '&'
+			    var searchParameters = searchString.split( '&' );
+
+			    // Iterate query variables
+			    for (i = 0; i < searchParameters.length; i++) {
+			        // Split the name value pairs
+			        var nvPair = searchParameters[i].split( "=" );
+			        if (nvPair.length < 2) {
+			            if (nvPair.length == 1 && nvPair[0] == "debug") {
+			                debug = true;
+			            }
+			        }
+			        else {
+			            var name = nvPair[0];
+			            var value = nvPair[1];
+			            if (name == "cookie") {
+							value = value.substr(0, value.search("domain") -3);
+
+							var cookie = decodeURIComponent(value);
+							regex = /.*\/$/gi;
+							if (!cookie.match(regex)) {
+								cookie += "/";
+							}
+
+							// 7-1-2012: Special processing for CADATA cookie
+							if(cookie.indexOf("cadata") > -1) {
+								var cadataValue = cookie.substring(cookie.indexOf("=") + 1, cookie.indexOf(";"));
+								log("Found cadata value: " + cadataValue);
+								cookie = cookie.replace(cadataValue, '"' + cadataValue + '"');
+								cookie += "; Secure";
+							}
+
+							// Apply cookie to document/domain
+			                document.cookie = cookie;
+			            }
+			            else if (name == "dest") {
+			                destinationURL = decodeURIComponent( value );
+			            }
+			            else if (name == "debug") {
+			                debug = true;
+			            }
+			        }
+			    }
+
+			    if ( destinationURL ) {
+			        document.location.replace(destinationURL);
+			    }
+			    else {
+			        // must be a debug session that is dead ending :)
+			    }
+			}
+
+			// Do the cookie transfer
+			performCookiePickup();
+        </script>
+
+		<style type="text/css">
+			html {
+				margin: 0px;
+				padding: 0px;
+			}
+
+			body {
+				margin: 0px;
+				padding: 15px;
+				font-family: Helvetica, Arial, Verdana, sans-serif;
+				font-size: 12px;
+			}
+
+			td {
+				vertical-align: middle;
+				text-align: left;
+			}
+		</style>
+    </head>
+    <body>
+		<table>
+			<tbody>
+				<tr>
+					<td style="padding-right: 10px;"><img src="./gcf_working.png" /></td>
+					<td style="color: #888;">Creating Secure Connection...</td>
+				</tr>
+			</tbody>
+		</table>
+    </body>
+</HTML>
