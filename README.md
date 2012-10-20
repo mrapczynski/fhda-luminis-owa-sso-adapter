@@ -47,6 +47,8 @@ The adapter can be configured for your OWA deployment by editing the four contex
 
 **Note on SSL Support:** SSL is supported, but you must be able to take the certificate for your Exchange domain (i.e. a .cer file) and pass it through the Java keytool to generate a trust file. Here is an easy example to follow: http://docs.oracle.com/javase/tutorial/security/toolfilex/rstep1.html - Place the generated keystore file in the WEB-INF directory of the adapter application.
 
+**Extra Bonus Points:** Send a pull request with an updated pom.xml using the Mojo Keytool plugin for Maven that will allow keystore trust generation right within this project.
+
 ### Step 3 - Build
 
 Using Maven on the command line (or in your favorite Java IDE), run the following Maven goals in sequence on the root directory of the project: **clean compile war:war**
