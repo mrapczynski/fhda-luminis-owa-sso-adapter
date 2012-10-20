@@ -90,7 +90,7 @@ An authentication failure will return an HTML result with the OWA login page.
 
 I anticipate most Luminis schools already have staff with at least a little GCF experience, so I will not go into detail with a GCF how-to.
 
-A GCF connector XML file, properties, and "configman" file are contained in the luminis/4.x directory within the project source code. Feel free to adapter for 5.x - it may not need any changes. These files should be placed in your $CP_HOME/webapps/cpipconnector/WEB-INF/config directory
+A GCF connector XML file, properties, and "configman" file are contained in the luminis/4.x directory within the project source code. Feel free to tweak the adapter for Luminis 5.x - it may not need any changes. These files should be placed in your $CP_HOME/webapps/cpipconnector/WEB-INF/config directory
 
 1. In exchange.properties, you need to set up values for the gcfAdapterServer and gcfAdapterURL properties to point to where you deployed the adapter in step 4.
 
